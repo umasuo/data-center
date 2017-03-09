@@ -10,7 +10,7 @@ public class DeviceDataMapper {
 
   public static DeviceData viewToModel(DeviceDataView view) {
     DeviceData model = null;
-    if (model != null) {
+    if (view != null) {
       model = new DeviceData();
       model.setId(view.getId());
       model.setCreatedAt(view.getCreatedAt());
@@ -29,7 +29,7 @@ public class DeviceDataMapper {
 
   public static DeviceDataView modelToView(DeviceData model) {
     DeviceDataView view = null;
-    if (view != null) {
+    if (model != null) {
       view = new DeviceDataView();
       view.setId(model.getId());
       view.setCreatedAt(model.getCreatedAt());

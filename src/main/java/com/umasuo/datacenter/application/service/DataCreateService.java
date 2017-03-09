@@ -41,7 +41,7 @@ public class DataCreateService {
 
     DeviceData dataSaved = deviceDataService.create(data);
 
-    logger.debug("CreateDeviceData: dataView: {}", dataView);
+    logger.debug("CreateDeviceData: dataSaved: {}", dataSaved);
     return DeviceDataMapper.modelToView(dataSaved);
   }
 }
