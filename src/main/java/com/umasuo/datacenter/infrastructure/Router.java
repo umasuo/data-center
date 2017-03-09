@@ -1,33 +1,12 @@
 package com.umasuo.datacenter.infrastructure;
 
 /**
- * Created by umasuo on 17/3/7.
+ * Created by umasuo on 17/3/9.
  */
 public class Router {
   /**
-   * authentication root.
+   * data center root.
    */
-  public static final String DEVELOPER_ROOT = "/developers";
-
-
-  /**
-   * login.
-   */
-  public static final String DEVELOPER_SIGN_IN = DEVELOPER_ROOT + "/signin";
-
-  /**
-   * login.
-   */
-  public static final String DEVELOPER_SIGN_IN_STATUS = DEVELOPER_ROOT + "/signin/status";
-
-  /**
-   * logout.
-   */
-  public static final String DEVELOPER_SIGN_OUT = DEVELOPER_ROOT + "/signout";
-
-  /**
-   * sign up.
-   */
-  public static final String DEVELOPER_SIGN_UP = DEVELOPER_ROOT + "/signup";
+  public static final String DATA_CENTER_ROOT = "/data";
 
 }
