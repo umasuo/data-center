@@ -65,7 +65,7 @@ public class DeviceData {
    */
   private String data;
 
-  // the next three filed is redundancy for search or process.
+  // the next several filed is redundancy for search or process.
 
   private String userId;
 
