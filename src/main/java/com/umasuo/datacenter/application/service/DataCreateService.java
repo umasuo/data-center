@@ -38,6 +38,8 @@ public class DataCreateService {
     //TODO, 1, check if the device exist
     //TODO, 2, check if the user bind to the device
     //TODO, 3, check if the data is in correct structure
+    //TODO, 4, if the data is just an input, and it need to be processed before saved it into db,
+    // then we should call data processor here.
 
     DeviceData dataSaved = deviceDataService.create(data);
 
