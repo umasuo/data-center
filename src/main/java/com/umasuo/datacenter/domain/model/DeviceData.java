@@ -1,5 +1,6 @@
 package com.umasuo.datacenter.domain.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -63,7 +64,7 @@ public class DeviceData {
   /**
    * the real structured json data.
    */
-  private String data;
+  private JsonNode data;
 
   // the next several filed is redundancy for search or process.
 

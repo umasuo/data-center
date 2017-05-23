@@ -1,5 +1,6 @@
 package com.umasuo.datacenter.application.dto.mapper;
 
+import com.umasuo.datacenter.application.dto.DeviceDataDraft;
 import com.umasuo.datacenter.application.dto.DeviceDataView;
 import com.umasuo.datacenter.domain.model.DeviceData;
 
@@ -23,6 +24,21 @@ public class DeviceDataMapper {
       model.setUserId(view.getUserId());
       model.setDeveloperId(view.getDeveloperId());
       model.setDeviceDefinitionId(view.getDeviceDefinitionId());
+    }
+    return model;
+  }
+
+
+  public static DeviceData viewToModel(DeviceDataDraft dataDraft) {
+    DeviceData model = null;
+    if (dataDraft != null) {
+      model = new DeviceData();
+      model.setDeviceId(dataDraft.getDeviceId());
+      model.setData(dataDraft.getData());
+
+      model.setUserId(dataDraft.getUserId());
+      model.setDeveloperId(dataDraft.getDeveloperId());
+      model.setDeviceDefinitionId(dataDraft.getDeviceDefinitionId());
     }
     return model;
   }

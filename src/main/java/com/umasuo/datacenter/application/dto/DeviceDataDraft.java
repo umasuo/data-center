@@ -11,21 +11,13 @@ import javax.validation.constraints.NotNull;
  * Created by umasuo on 17/3/9.
  */
 @Data
-public class DeviceDataView {
-
-  private String id;
-
-  protected ZonedDateTime createdAt;
-
-  protected ZonedDateTime lastModifiedAt;
-
-  private Integer version;
+public class DeviceDataDraft {
 
   /**
    * data definition id, used to check if the data is in the correct structure.
    */
   @NotNull
-  private String dataDefinitionId;
+  private String dataId;
 
   /**
    * device id.
@@ -39,8 +31,9 @@ public class DeviceDataView {
   @NotNull
   private JsonNode data;
 
-  // the next three filed is redundancy for search or process.
-  @NotNull
+  /**
+   * 以下个信息并不是必要的，只是为了以后的搜索优化而存储.
+   */
   private String userId;
 
   private String developerId;

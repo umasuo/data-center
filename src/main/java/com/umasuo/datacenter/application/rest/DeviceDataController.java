@@ -1,5 +1,6 @@
 package com.umasuo.datacenter.application.rest;
 
+import com.umasuo.datacenter.application.dto.DeviceDataDraft;
 import com.umasuo.datacenter.application.dto.DeviceDataView;
 import com.umasuo.datacenter.application.service.DataCreateService;
 import com.umasuo.datacenter.infrastructure.Router;
@@ -27,9 +28,9 @@ public class DeviceDataController {
   private transient DataCreateService dataCreateService;
 
   @PostMapping(value = Router.DATA_CENTER_ROOT)
-  public void createOneDeviceData(@RequestBody @Valid DeviceDataView dataView) {
+  public void createOneDeviceData(@RequestBody @Valid DeviceDataDraft dataDraft) {
 
-    dataCreateService.create(dataView);
+    dataCreateService.create(dataDraft);
   }
 
 }
