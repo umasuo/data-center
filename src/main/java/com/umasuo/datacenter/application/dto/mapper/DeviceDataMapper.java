@@ -19,7 +19,7 @@ public class DeviceDataMapper {
       model.setDeviceId(view.getDeviceId());
       model.setDataDefinitionId(view.getDataDefinitionId());
       model.setVersion(view.getVersion());
-      model.setData(view.getData());
+//      model.setData(view.getData());
 
       model.setUserId(view.getUserId());
       model.setDeveloperId(view.getDeveloperId());
@@ -34,7 +34,7 @@ public class DeviceDataMapper {
     if (dataDraft != null) {
       model = new DeviceData();
       model.setDeviceId(dataDraft.getDeviceId());
-      model.setData(dataDraft.getData());
+//      model.setData(dataDraft.getData());
 
       model.setUserId(dataDraft.getUserId());
       model.setDeveloperId(dataDraft.getDeveloperId());
@@ -53,7 +53,7 @@ public class DeviceDataMapper {
       view.setDeviceId(model.getDeviceId());
       view.setDataDefinitionId(model.getDataDefinitionId());
       view.setVersion(model.getVersion());
-      view.setData(model.getData());
+//      view.setData(model.getData());
 
       view.setUserId(model.getUserId());
       view.setDeveloperId(model.getDeveloperId());

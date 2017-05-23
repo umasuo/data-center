@@ -64,7 +64,7 @@ public class DeviceData {
   /**
    * the real structured json data.
    */
-  private JsonNode data;
+  private String data;
 
   // the next several filed is redundancy for search or process.
 
