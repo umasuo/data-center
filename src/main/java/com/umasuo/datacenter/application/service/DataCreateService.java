@@ -41,7 +41,7 @@ public class DataCreateService {
     DeviceData data = DeviceDataMapper.viewToModel(dataDraft);
 
     //TODO 1, check if the device exist
-    //TODO 2, check if the user bind to the device,(if the device is an open de)
+    //TODO 2, check if the user bind to the device,(if the device is an open device)
     //TODO 3, check if the data is in correct structure
     //TODO 4, if the data is not the final data, then it need to be processed before saved it
     // into db, then we should call data processor here.
