@@ -1,19 +1,21 @@
 package com.umasuo.datacenter.domain.model;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 /**
  * Created by umasuo on 17/3/9.
@@ -23,6 +25,7 @@ import javax.persistence.Table;
 @Table(name = "device_data")
 @Setter
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public class DeviceData {
 
   @Id
@@ -49,6 +52,7 @@ public class DeviceData {
   /**
    * version used for update date check.
    */
+  @Version
   private Integer version;
 
   /**
