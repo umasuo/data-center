@@ -43,9 +43,9 @@ public class DeviceDataController {
                                   @RequestHeader String userId) {
     logger.info("Enter. deviceDataDraft: {}.", dataDraft);
 
-    dataCreateService.create(dataDraft, developerId, userId);
+    DeviceDataView view = dataCreateService.create(dataDraft, developerId, userId);
 
-    logger.info("Exit. deviceDataDraft: {}.", dataDraft);
+    logger.info("Exit. dataView: {}.", view);
   }
 
 }

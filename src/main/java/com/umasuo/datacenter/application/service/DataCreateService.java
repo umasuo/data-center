@@ -53,6 +53,9 @@ public class DataCreateService {
 
     //TODO 1, check if the device exist
     Device device = restClient.getDevice(dataDraft.getDeviceId());
+    if (device == null) {
+      throw new ParametersException("Device not exist, deviceId: " + dataDraft.getDeviceId());
+    }
     //TODO 2, check if the user bind to the device,(if the device is an open device)
 
     //TODO 3, check if the data is in correct structure
