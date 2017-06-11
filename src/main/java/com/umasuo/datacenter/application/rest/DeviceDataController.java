@@ -71,11 +71,13 @@ public class DeviceDataController {
 
   /**
    * 获取某个用户的某个设备的某种类型的数据在某一段时间的值.
-   * @param developerId  开发者ID
-   * @param userId 用户ID
-   * @param dataId 数据ID，开发者定义
-   * @param start 开始时间
-   * @param end 结束时间
+   * 时间跨度不能够太大，否则会导致数据量过大而程序奔溃，用户拉取数据，限制在一次只能够拉取一周的数据.
+   *
+   * @param developerId 开发者ID
+   * @param userId      用户ID
+   * @param dataId      数据ID，开发者定义
+   * @param start       开始时间
+   * @param end         结束时间
    * @return 数据列表
    */
   public List<DeviceDataView> getDeviceData(@RequestHeader String developerId,
@@ -83,6 +85,10 @@ public class DeviceDataController {
                                             @RequestParam String dataId,
                                             @RequestParam long start,
                                             @RequestParam long end) {
+    logger.info("Enter. developerId: {}, userId: {}, dataId: {}, start: {}, end: {}.",
+        developerId, userId, dataId, start, end);
+
+    List<DeviceDataView> views = dataApp.get(developerId, userId, dataId, start, end);
 
     return null;
   }
