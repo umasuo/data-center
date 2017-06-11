@@ -11,19 +11,20 @@ import com.umasuo.datacenter.application.dto.mapper.DeviceDataMapper;
 import com.umasuo.datacenter.domain.model.DeviceData;
 import com.umasuo.datacenter.domain.service.DeviceDataService;
 import com.umasuo.exception.ParametersException;
-import io.jsonwebtoken.lang.Assert;
-import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 设备上传数据服务.
  * Created by umasuo on 17/3/9.
  */
 @Service
-public class DataCreateService {
+public class DataCreateApplication {
 
   /**
    * logger.
@@ -77,5 +78,34 @@ public class DataCreateService {
 
     logger.debug("Exit. dataSaved: {}", dataSaved);
     return DeviceDataMapper.modelToView(dataSaved);
+  }
+
+  /**
+   * 创建list数据.
+   *
+   * @param drafts      draft 列表
+   * @param developerId 开发者ID
+   * @param userId      用户ID
+   * @return
+   */
+  public List<DeviceDataView> createList(List<DeviceDataDraft> drafts, String developerId, String
+      userId) {
+    logger.debug("Enter. ");
+
+    List<DeviceDataView> views = drafts.stream().map(
+        dataDraft -> create(dataDraft, developerId, userId)
+    ).collect(Collectors.toList());
+
+    logger.debug("Exit. ");
+    return views;
+  }
+
+
+  public List<DeviceDataView> get(String developerId,
+                                  String userId,
+                                  String dataId,
+                                  long start,
+                                  long end) {
+    return null;
   }
 }
