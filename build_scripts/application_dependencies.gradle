@@ -20,6 +20,9 @@ dependencies {
 
     compile('com.google.api-client:google-api-client:1.22.0')
 
+    //for json validator
+    compile(group: "com.github.java-json-tools", name: "json-schema-validator", version: "2.2.8");
+
     // Lombok
     compile('org.projectlombok:lombok:1.16.12')
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -30,15 +31,21 @@ public class DeviceDataController {
   private transient DataCreateService dataCreateService;
 
   /**
-   * 创建一条数据，只能够创建一条.
+   * 客户端或者设备上传数据.
    *
    * @param dataDraft
+   * @param developerId
+   * @param userId
    */
   @PostMapping(value = Router.DATA_CENTER_ROOT)
-  public void createOneDeviceData(@RequestBody @Valid DeviceDataDraft dataDraft) {
+  public void createOneDeviceData(@RequestBody @Valid DeviceDataDraft dataDraft,
+                                  @RequestHeader String developerId,
+                                  @RequestHeader String userId) {
     logger.info("Enter. deviceDataDraft: {}.", dataDraft);
 
-    dataCreateService.create(dataDraft);
+    dataCreateService.create(dataDraft, developerId, userId);
+
+    logger.info("Exit. deviceDataDraft: {}.", dataDraft);
   }
 
 }

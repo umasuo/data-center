@@ -32,11 +32,7 @@ public class DeviceDataDraft {
   private JsonNode data;
 
   /**
-   * 以下个信息并不是必要的，只是为了以后的搜索优化而存储.
+   * 设备定义的ID，冗余数据，方便后期查询.
    */
-  private String userId;
-
-  private String developerId;
-
   private String deviceDefinitionId;
 }

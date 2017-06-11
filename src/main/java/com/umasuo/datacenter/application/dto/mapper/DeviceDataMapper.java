@@ -29,15 +29,15 @@ public class DeviceDataMapper {
   }
 
 
-  public static DeviceData viewToModel(DeviceDataDraft dataDraft) {
+  public static DeviceData viewToModel(DeviceDataDraft dataDraft,String developerId, String userId) {
     DeviceData model = null;
     if (dataDraft != null) {
       model = new DeviceData();
       model.setDeviceId(dataDraft.getDeviceId());
 //      model.setData(dataDraft.getData());
 
-      model.setUserId(dataDraft.getUserId());
-      model.setDeveloperId(dataDraft.getDeveloperId());
+      model.setUserId(userId);
+      model.setDeveloperId(developerId);
       model.setDeviceDefinitionId(dataDraft.getDeviceDefinitionId());
     }
     return model;
