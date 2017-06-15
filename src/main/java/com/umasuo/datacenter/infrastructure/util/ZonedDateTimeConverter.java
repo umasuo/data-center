@@ -12,20 +12,20 @@ import javax.persistence.Converter;
  * Created by Davis on 17/6/1.
  */
 @Converter(autoApply = true)
-public class ZonedDateTimeConverter implements AttributeConverter<ZonedDateTime, String> {
+public class ZonedDateTimeConverter implements AttributeConverter<ZonedDateTime, Long> {
 
   @Override
-  public String convertToDatabaseColumn(ZonedDateTime attribute) {
+  public Long convertToDatabaseColumn(ZonedDateTime attribute) {
     ZonedDateTime localUTC = ZonedDateTime.ofInstant(attribute.toInstant(), ZoneOffset.UTC);
-    return String.valueOf(localUTC.toEpochSecond());
+    return localUTC.toEpochSecond();
   }
 
   @Override
-  public ZonedDateTime convertToEntityAttribute(String dbData) {
+  public ZonedDateTime convertToEntityAttribute(Long dbData) {
     ZoneId utcZoneId = ZonedDateTime.now(ZoneOffset.UTC).getZone();
 
     ZonedDateTime dateTime =
-        ZonedDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(dbData)), utcZoneId);
+        ZonedDateTime.ofInstant(Instant.ofEpochSecond(dbData), utcZoneId);
 
     return dateTime;
   }

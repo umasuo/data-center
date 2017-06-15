@@ -37,6 +37,7 @@ public class RestClient {
    * @return boolean
    */
   public Device getDevice(String deviceId) {
+
     return null;
   }
 

@@ -43,9 +43,15 @@ public class DeviceDataService {
                               String dataId,
                               String deviceId,
                               long start,
-                              long end){
+                              long end) {
+    logger.debug("Enter. developerId: {}, userId: {}, dataId: {}, deviceId: {}, start: {}, end: " +
+        "{}.", developerId, userId, dataId, deviceId, start, end);
+    List<DeviceData> dataList = repository.queryByTime(developerId, userId, dataId, deviceId,
+        start, end);
 
-    return null;
+    logger.debug("Exit. dataSize: {}.", dataList.size());
+    logger.trace("Exit. data: {}.", dataList);
+    return dataList;
   }
 
 }

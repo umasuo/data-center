@@ -39,7 +39,7 @@ public class DeviceData {
    */
   @CreatedDate
   @Column(name = "created_at")
-  protected ZonedDateTime createdAt;
+  protected Long createdAt;
 
   /**
    * The Last modified at.
@@ -47,7 +47,7 @@ public class DeviceData {
    */
   @LastModifiedDate
   @Column(name = "last_modified_at")
-  protected ZonedDateTime lastModifiedAt;
+  protected Long lastModifiedAt;
 
   /**
    * version used for update date check.

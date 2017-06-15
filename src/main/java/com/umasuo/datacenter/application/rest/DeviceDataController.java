@@ -91,7 +91,7 @@ public class DeviceDataController {
     logger.info("Enter. developerId: {}, userId: {}, dataId: {}, start: {}, end: {}.",
         developerId, userId, dataId, start, end);
 
-    List<DeviceDataView> views = dataApp.get(developerId, deviceId, userId, dataId, start, end);
+    List<DeviceDataView> views = dataApp.get(developerId, userId, dataId, deviceId, start, end);
 
     logger.info("Exit. DeviceDataSize: {}.", views.size());
     return views;

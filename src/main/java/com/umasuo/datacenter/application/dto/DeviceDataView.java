@@ -15,9 +15,9 @@ public class DeviceDataView {
 
   private String id;
 
-  protected ZonedDateTime createdAt;
+  protected Long createdAt;
 
-  protected ZonedDateTime lastModifiedAt;
+  protected Long lastModifiedAt;
 
   private Integer version;
 

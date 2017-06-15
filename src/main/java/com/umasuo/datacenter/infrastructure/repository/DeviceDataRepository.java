@@ -14,12 +14,17 @@ import java.util.List;
 @Repository
 public interface DeviceDataRepository extends JpaRepository<DeviceData, String> {
 
-  @Query("select d from DeviceData d where d.developerId = ?1 and  d.userId = ?2 and d.dataDefinitionId = ?3 and d.deviceId = ?4 and d.createdAt > ?5 and d.lastModifiedAt < ?6")
+  @Query("select d from DeviceData d where d.developerId = ?1 and  d.userId = ?2 and d.dataDefinitionId = ?3 and d.deviceId = ?4 and d.createdAt > ?5 and d.createdAt < ?6")
   List<DeviceData> queryByTime(String developerId,
                                String userId,
                                String dataId,
                                String deviceId,
-                               long start,
-                               long end);
+                               Long start,
+                               Long end);
+  @Query("select d from DeviceData d where d.developerId = ?1 and  d.userId = ?2 and d.dataDefinitionId = ?3 and d.deviceId = ?4")
+  List<DeviceData> queryByTime(String developerId,
+                               String userId,
+                               String dataDefinitionId,
+                               String deviceId);
 
 }
