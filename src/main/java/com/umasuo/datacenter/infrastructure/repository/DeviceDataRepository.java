@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
 @Repository
 public interface DeviceDataRepository extends JpaRepository<DeviceData, String> {
 
-  @Query("select u from User u where u.developerId = ?1 and  u.userId = ?2 and u.dataDefinitionId = ?3 and u.deviceId = ?4 and u.created_at > ?5 and u.created_at < ?6")
+  @Query("select d from DeviceData d where d.developerId = ?1 and  d.userId = ?2 and d.dataDefinitionId = ?3 and d.deviceId = ?4 and d.createdAt > ?5 and d.lastModifiedAt < ?6")
   List<DeviceData> queryByTime(String developerId,
                                String userId,
                                String dataId,
