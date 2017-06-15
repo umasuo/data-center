@@ -6,7 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
+
+import java.util.List;
 
 /**
  * Created by umasuo on 17/3/9.
@@ -29,14 +30,22 @@ public class DeviceDataService {
    * @return
    */
   public DeviceData create(DeviceData data) {
-    logger.debug("CreateDeviceData: {}", data);
-    Assert.notNull(data);
-    Assert.notNull(data.getData());
-    Assert.notNull(data.getDataDefinitionId());
-    Assert.notNull(data.getDeviceId());
-    Assert.notNull(data.getUserId());
+    logger.debug("Enter. {}", data);
 
-    return repository.save(data);
+    DeviceData saved = repository.save(data);
+
+    logger.debug("Exit. saved: {}.", saved);
+    return saved;
+  }
+
+  public List<DeviceData> get(String developerId,
+                              String userId,
+                              String dataId,
+                              String deviceId,
+                              long start,
+                              long end){
+
+    return null;
   }
 
 }

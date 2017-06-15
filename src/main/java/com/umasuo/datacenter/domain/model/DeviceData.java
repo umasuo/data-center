@@ -68,6 +68,7 @@ public class DeviceData {
   /**
    * the real structured json data.
    */
+  @Column(length = 65535)
   private String data;
 
   // the next several filed is redundancy for search or process.
@@ -77,6 +78,5 @@ public class DeviceData {
   private String developerId;
 
   private String deviceDefinitionId;
-
 
 }

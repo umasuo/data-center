@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -40,7 +41,7 @@ public class DeviceDataController {
    * @param developerId String
    * @param userId      Strings
    */
-  @PostMapping(value = Router.DATA_CENTER_ROOT)
+//  @PostMapping(value = Router.DATA_CENTER_ROOT)
   public void createOneDeviceData(@RequestBody @Valid DeviceDataDraft dataDraft,
                                   @RequestHeader String developerId,
                                   @RequestHeader String userId) {
@@ -80,16 +81,19 @@ public class DeviceDataController {
    * @param end         结束时间
    * @return 数据列表
    */
+  @GetMapping(Router.DATA_CENTER_ROOT)
   public List<DeviceDataView> getDeviceData(@RequestHeader String developerId,
                                             @RequestHeader String userId,
                                             @RequestParam String dataId,
+                                            @RequestParam String deviceId,
                                             @RequestParam long start,
                                             @RequestParam long end) {
     logger.info("Enter. developerId: {}, userId: {}, dataId: {}, start: {}, end: {}.",
         developerId, userId, dataId, start, end);
 
-    List<DeviceDataView> views = dataApp.get(developerId, userId, dataId, start, end);
+    List<DeviceDataView> views = dataApp.get(developerId, deviceId, userId, dataId, start, end);
 
-    return null;
+    logger.info("Exit. DeviceDataSize: {}.", views.size());
+    return views;
   }
 }
