@@ -20,3 +20,12 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+device:
+  center:
+    service:
+      url: http://localhost:8082/devices/
+data:
+  definition:
+    service:
+      url: http://localhost:8802/device-definitions/
