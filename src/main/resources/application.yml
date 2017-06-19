@@ -28,4 +28,4 @@ device:
 data:
   definition:
     service:
-      url: http://localhost:8802/device-definitions/
+      url: http://localhost:8802/data-definitions/

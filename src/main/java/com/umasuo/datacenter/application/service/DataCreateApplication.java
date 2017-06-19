@@ -55,12 +55,14 @@ public class DataCreateApplication {
 
     DeviceData data = DeviceDataMapper.viewToModel(dataDraft, developerId, userId);
 
+    // Check if device exist.
     Device device = restClient.getDevice(dataDraft.getDeviceId(), developerId);
     if (device == null) {
       logger.debug("Device: {} not exist.", dataDraft.getDeviceId());
       throw new ParametersException("Device not exist, deviceId: " + dataDraft.getDeviceId());
     }
 
+    // Check if user is bound to the device
     if (StringUtils.isNotBlank(userId) &&
         ! userId.equals(device.getOwnerId())) {
       logger.debug("User: {} is not bound to the device: {}.", userId, device.getId());
@@ -68,6 +70,7 @@ public class DataCreateApplication {
           " not bound to the device: " + device.getId());
     }
 
+    // Check json schema
     DataDefinition dataDefinition = restClient.getDataDefinition(dataDraft.getDataId(),
         developerId);
     try {
