@@ -54,7 +54,7 @@ public class DeviceDataController {
   }
 
   /**
-   * 客户端活着设备上传一系列数据.
+   * 客户端或者设备上传一系列数据.
    */
   @PostMapping(value = Router.DATA_CENTER_ROOT)
   public void createListDeviceData(@RequestBody @Valid List<DeviceDataDraft>

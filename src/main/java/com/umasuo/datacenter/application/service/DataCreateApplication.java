@@ -1,10 +1,14 @@
 package com.umasuo.datacenter.application.service;
 
+import com.umasuo.datacenter.application.dto.Device;
 import com.umasuo.datacenter.application.dto.DeviceDataDraft;
 import com.umasuo.datacenter.application.dto.DeviceDataView;
 import com.umasuo.datacenter.application.dto.mapper.DeviceDataMapper;
 import com.umasuo.datacenter.domain.model.DeviceData;
 import com.umasuo.datacenter.domain.service.DeviceDataService;
+import com.umasuo.datacenter.infrastructure.validator.TimeValidator;
+import com.umasuo.exception.ParametersException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +53,7 @@ public class DataCreateApplication {
     //TODO 1, check if the device exist
 //    Device device = restClient.getDevice(dataDraft.getDeviceId());
 //    if (device == null) {
+//      logger.debug("Device: {} not exist.", dataDraft.getDeviceId());
 //      throw new ParametersException("Device not exist, deviceId: " + dataDraft.getDeviceId());
 //    }
     //TODO 2, check if the user bind to the device,(if the device is an open device)
@@ -115,6 +120,8 @@ public class DataCreateApplication {
     logger.debug("Enter. developerId: {}, userId: {}, dataId: {}, deviceId: {}, start: {}, end: " +
         "{}.", developerId, userId, dataId, deviceId, start, end);
 
+    TimeValidator.validatePeriod(start, end);
+    
     List<DeviceData> dataList = deviceDataService.get(developerId, userId, dataId, deviceId,
         start, end);
 
