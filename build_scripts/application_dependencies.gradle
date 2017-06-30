@@ -5,6 +5,7 @@ apply plugin: 'org.springframework.boot'
 dependencies {
     // Spring
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-redis")
     compile("org.springframework.cloud:spring-cloud-starter-config:1.3.0.M1")
 
     // For @CreatedDate and @LastModifiedDate
@@ -28,6 +29,9 @@ dependencies {
 
     // Lombok
     compile('org.projectlombok:lombok:1.16.12')
+
+    // EMQTT client
+    compile('org.fusesource.mqtt-client:mqtt-client:1.14')
 
     //common tool
     compile('org.apache.commons:commons-lang3:3.4')
