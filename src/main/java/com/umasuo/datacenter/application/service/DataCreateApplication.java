@@ -12,7 +12,6 @@ import com.umasuo.datacenter.domain.model.DeviceData;
 import com.umasuo.datacenter.domain.service.DeviceDataService;
 import com.umasuo.datacenter.infrastructure.validator.TimeValidator;
 import com.umasuo.exception.ParametersException;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +63,7 @@ public class DataCreateApplication {
 
     // Check if user is bound to the device
     if (StringUtils.isNotBlank(userId) &&
-        ! userId.equals(device.getOwnerId())) {
+        !userId.equals(device.getOwnerId())) {
       logger.debug("User: {} is not bound to the device: {}.", userId, device.getId());
       throw new ParametersException("User: " + userId +
           " not bound to the device: " + device.getId());
@@ -82,10 +81,9 @@ public class DataCreateApplication {
       throw new ParametersException("Data is not in correct format.");
     }
 
-    //TODO 4, if the data is not the final data, then it need to be processed before saved it
-    // into db, then we should call data processor here. 此步骤需要异步执行，否则容易出错
-
     DeviceData dataSaved = deviceDataService.create(data);
+
+    //todo 原始数据已经完成存储，发出相关消息，然后开始进行数据的处理
 
     logger.debug("Exit. dataSaved: {}", dataSaved);
     return DeviceDataMapper.toView(dataSaved);
