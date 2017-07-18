@@ -98,7 +98,7 @@ public class RestClient {
           restTemplate.exchange(url, HttpMethod.GET, entity, DataDefinition.class);
 
       result = response.getBody();
-    } catch (InvalidMediaTypeException exception) {
+    } catch (RestClientException | InvalidMediaTypeException exception) {
       logger.debug("Can not find Device: ", exception);
     }
 
