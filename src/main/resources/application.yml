@@ -29,3 +29,10 @@ data:
   definition:
     service:
       url: http://localhost:8802/data-definitions/
+
+message:
+  broker:
+    host: 127.0.0.1
+    port: 1883
+    username: umasuo
+    password: password
