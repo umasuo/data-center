@@ -1,12 +1,12 @@
 package com.umasuo.datacenter.application.dto;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.umasuo.datacenter.infrastructure.util.JsonUtils;
+
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by umasuo on 17/3/8.
@@ -42,31 +42,28 @@ public class DataDefinition implements Serializable {
   /**
    * which developer this data definition belong to.
    */
-  @NotNull
   private String developerId;
 
   /**
    * data id defined by the developer.
    */
-  @NotNull
   private String dataId;
 
   /**
    * the data structure.
    */
-  @NotNull
   private JsonNode dataSchema;
+
+  private String schema;
 
   /**
    * name of this definition.
    */
-  @NotNull
   private String name;
 
   /**
    * describe the usage of this definition.
    */
-  @NotNull
   private String description;
 
   /**
@@ -74,4 +71,9 @@ public class DataDefinition implements Serializable {
    * True means other developers can find this data, false means not.
    */
   private Boolean openable;
+
+  public void setSchema(String schema) {
+    this.schema = schema;
+    dataSchema = JsonUtils.deserialize(schema, JsonNode.class);
+  }
 }

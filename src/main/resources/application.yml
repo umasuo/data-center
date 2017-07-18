@@ -28,7 +28,7 @@ device:
 data:
   definition:
     service:
-      url: http://localhost:8802/data-definitions/
+      url: http://localhost:8802/
 
 message:
   broker:
