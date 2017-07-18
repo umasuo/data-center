@@ -60,6 +60,8 @@ public class MessageApplication implements CommandLineRunner {
     redisTemplate.boundHashOps(USERNAME_PREFIX + appConfig.getUsername()).put("password",
         appConfig.getPassword());
 
+    logger.info("Message broker config: {}.", appConfig);
+
     mqtt = new MQTT();
     mqtt.setUserName(appConfig.getUsername());
     mqtt.setPassword(appConfig.getPassword());
