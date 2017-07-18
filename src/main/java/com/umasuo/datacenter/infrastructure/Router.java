@@ -7,6 +7,6 @@ public class Router {
   /**
    * data center root.
    */
-  public static final String DATA_CENTER_ROOT = "/data";
+  public static final String DATA_CENTER_ROOT = "/v1/data";
 
 }
