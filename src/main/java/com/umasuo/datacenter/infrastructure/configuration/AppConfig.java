@@ -14,9 +14,6 @@ public class AppConfig {
   /**
    * message broker's host.
    */
-  /**
-   * message broker's host.
-   */
   @Value("${message.broker.host:127.0.0.1}")
   public String msgBrokerHost;
 
