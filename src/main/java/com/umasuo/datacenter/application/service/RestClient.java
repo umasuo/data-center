@@ -87,6 +87,8 @@ public class RestClient {
 
     String url = dataDefinitionUrl + dataDefinitionId;
 
+    logger.debug("DataDefinition url: {}.", url);
+
     HttpEntity entity = addDeveloperHeader(developerId);
 
     DataDefinition result = null;
