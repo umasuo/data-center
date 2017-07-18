@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.InvalidMediaTypeException;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -55,6 +56,8 @@ public class RestClient {
 
     String url = deviceCenterUrl + deviceId;
 
+    logger.debug("device url: {}.", url);
+
     Device result = null;
 
     try {
@@ -63,7 +66,7 @@ public class RestClient {
           restTemplate.exchange(url, HttpMethod.GET, entity, Device.class);
 
       result = response.getBody();
-    } catch (InvalidMediaTypeException exception) {
+    } catch (RestClientException | InvalidMediaTypeException exception) {
       logger.debug("Can not find Device: ", exception);
     }
 
