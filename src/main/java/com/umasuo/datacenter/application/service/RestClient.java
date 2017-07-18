@@ -54,7 +54,7 @@ public class RestClient {
 
     HttpEntity entity = addDeveloperHeader(developerId);
 
-    String url = deviceCenterUrl + deviceId;
+    String url = deviceCenterUrl + "v1/devices/" + deviceId;
 
     logger.debug("device url: {}.", url);
 
