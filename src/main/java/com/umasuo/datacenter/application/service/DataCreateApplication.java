@@ -70,8 +70,9 @@ public class DataCreateApplication {
     }
 
     // Check json schema
-    DataDefinition dataDefinition = restClient.getDataDefinition(dataDraft.getDataId(),
-        developerId);
+    DataDefinition dataDefinition = restClient.getDataDefinition(
+        dataDraft.getDataId(), developerId, dataDraft.getDeviceDefinitionId());
+
     try {
       JsonSchema schema = JsonSchemaFactory.byDefault().getJsonSchema(dataDefinition
           .getDataSchema());

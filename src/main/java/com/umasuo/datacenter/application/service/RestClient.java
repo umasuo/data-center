@@ -13,6 +13,7 @@ import org.springframework.http.InvalidMediaTypeException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * Created by umasuo on 17/5/22.
@@ -81,11 +82,14 @@ public class RestClient {
    * @param developerId String
    * @return DataDefinition
    */
-  public DataDefinition getDataDefinition(String dataDefinitionId, String developerId) {
+  public DataDefinition getDataDefinition(String dataDefinitionId, String developerId,
+      String productId) {
 
     logger.debug("Enter. dataDefinitionId: {}, developerId: {}.", dataDefinitionId, developerId);
 
-    String url = dataDefinitionUrl + dataDefinitionId;
+    String url = dataDefinitionUrl + "data-definitions/" + dataDefinitionId;
+
+    url = UriComponentsBuilder.fromHttpUrl(url).queryParam("productId", productId).build().toString();
 
     logger.debug("DataDefinition url: {}.", url);
 
