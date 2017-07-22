@@ -54,13 +54,17 @@ public class MessageApplication implements CommandLineRunner {
   public MessageApplication(StringRedisTemplate redisTemplate,
                             DataMessageHandler deviceMessageHandler,
                             AppConfig appConfig) {
+    logger.info("Init message client.");
+
     this.appConfig = appConfig;
+    logger.info("Message broker config: {}.", appConfig);
+
     this.redisTemplate = redisTemplate;
     this.deviceMessageHandler = deviceMessageHandler;
+
     redisTemplate.boundHashOps(USERNAME_PREFIX + appConfig.getUsername()).put("password",
         appConfig.getPassword());
-
-    logger.info("Message broker config: {}.", appConfig);
+    logger.info("Connect to redis.");
 
     mqtt = new MQTT();
     mqtt.setUserName(appConfig.getUsername());
