@@ -10,18 +10,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by umasuo on 17/3/9.
+ * DeviceDataService.
  */
 @Service
 public class DeviceDataService {
 
   /**
-   * logger.
+   * LOGGER.
    */
-  private final static Logger logger = LoggerFactory.getLogger(DeviceDataService.class);
+  private final static Logger LOGGER = LoggerFactory.getLogger(DeviceDataService.class);
 
+  /**
+   * Repository.
+   */
   @Autowired
-  private DeviceDataRepository repository;
+  private transient DeviceDataRepository repository;
 
   /**
    * create one device data.
@@ -30,27 +33,37 @@ public class DeviceDataService {
    * @return
    */
   public DeviceData create(DeviceData data) {
-    logger.debug("Enter. {}", data);
+    LOGGER.debug("Enter. {}", data);
 
     DeviceData saved = repository.save(data);
 
-    logger.debug("Exit. saved: {}.", saved);
+    LOGGER.debug("Exit. saved: {}.", saved);
     return saved;
   }
 
+  /**
+   * Get device data.
+   * @param developerId
+   * @param userId
+   * @param dataId
+   * @param deviceId
+   * @param start
+   * @param end
+   * @return
+   */
   public List<DeviceData> get(String developerId,
                               String userId,
                               String dataId,
                               String deviceId,
                               long start,
                               long end) {
-    logger.debug("Enter. developerId: {}, userId: {}, dataId: {}, deviceId: {}, start: {}, end: " +
+    LOGGER.debug("Enter. developerId: {}, userId: {}, dataId: {}, deviceId: {}, start: {}, end: " +
         "{}.", developerId, userId, dataId, deviceId, start, end);
-    List<DeviceData> dataList = repository.queryByTime(developerId, userId, dataId, deviceId,
+    List<DeviceData> dataList = repository.query(developerId, userId, dataId, deviceId,
         start, end);
 
-    logger.debug("Exit. dataSize: {}.", dataList.size());
-    logger.trace("Exit. data: {}.", dataList);
+    LOGGER.debug("Exit. dataSize: {}.", dataList.size());
+    LOGGER.trace("Exit. data: {}.", dataList);
     return dataList;
   }
 

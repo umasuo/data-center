@@ -2,7 +2,6 @@ package com.umasuo.datacenter.application.service;
 
 import com.umasuo.datacenter.application.dto.DataDefinition;
 import com.umasuo.datacenter.application.dto.Device;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,27 +15,27 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * Created by umasuo on 17/5/22.
+ * Rest client.
  */
 @Component
 public class RestClient {
 
   /**
-   * logger.
+   * LOGGER.
    */
-  private final static Logger logger = LoggerFactory.getLogger(RestClient.class);
+  private final static Logger LOGGER = LoggerFactory.getLogger(RestClient.class);
 
   /**
    * Data center url.
    */
   @Value("${device.center.service.url:http://device-center/}")
-  private String deviceCenterUrl;
+  private transient String deviceCenterUrl;
 
   /**
    * Data definition service url.
    */
   @Value("${data.definition.service.url:http://data-definition/}")
-  private String dataDefinitionUrl;
+  private transient String dataDefinitionUrl;
 
   /**
    * RestTemplate.
@@ -46,18 +45,18 @@ public class RestClient {
   /**
    * 调取开发者服务，检查给定的开发者是否存在.
    *
-   * @param deviceId 设备ID
+   * @param deviceId    设备ID
    * @param developerId 开发者Id
    * @return Device
    */
   public Device getDevice(String deviceId, String developerId) {
-    logger.debug("Enter. deviceId: {}, developerId: {}.", deviceId, developerId);
+    LOGGER.debug("Enter. deviceId: {}, developerId: {}.", deviceId, developerId);
 
     HttpEntity entity = addDeveloperHeader(developerId);
 
     String url = deviceCenterUrl + "v1/devices/" + deviceId;
 
-    logger.debug("device url: {}.", url);
+    LOGGER.debug("device url: {}.", url);
 
     Device result = null;
 
@@ -68,30 +67,31 @@ public class RestClient {
 
       result = response.getBody();
     } catch (RestClientException | InvalidMediaTypeException exception) {
-      logger.debug("Can not find Device: ", exception);
+      LOGGER.debug("Can not find Device: ", exception);
     }
 
-    logger.debug("Exit. device: {}.", result);
+    LOGGER.debug("Exit. device: {}.", result);
     return result;
   }
 
   /**
    * get data definition with dataId and developerId.
    *
-   * @param dataDefinitionId      String
-   * @param developerId String
+   * @param dataDefinitionId String
+   * @param developerId      String
    * @return DataDefinition
    */
   public DataDefinition getDataDefinition(String dataDefinitionId, String developerId,
-      String productId) {
+                                          String productId) {
 
-    logger.debug("Enter. dataDefinitionId: {}, developerId: {}.", dataDefinitionId, developerId);
+    LOGGER.debug("Enter. dataDefinitionId: {}, developerId: {}.", dataDefinitionId, developerId);
 
     String url = dataDefinitionUrl + "data-definitions/" + dataDefinitionId;
 
-    url = UriComponentsBuilder.fromHttpUrl(url).queryParam("productId", productId).build().toString();
+    url = UriComponentsBuilder.fromHttpUrl(url).queryParam("productId", productId).build()
+        .toString();
 
-    logger.debug("DataDefinition url: {}.", url);
+    LOGGER.debug("DataDefinition url: {}.", url);
 
     HttpEntity entity = addDeveloperHeader(developerId);
 
@@ -103,10 +103,10 @@ public class RestClient {
 
       result = response.getBody();
     } catch (RestClientException | InvalidMediaTypeException exception) {
-      logger.debug("Can not find Device: ", exception);
+      LOGGER.debug("Can not find Device: ", exception);
     }
 
-    logger.debug("Exit. dataDefinition: {}.", result);
+    LOGGER.debug("Exit. dataDefinition: {}.", result);
 
     return result;
   }

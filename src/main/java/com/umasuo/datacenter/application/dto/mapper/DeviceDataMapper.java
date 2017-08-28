@@ -10,13 +10,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by umasuo on 17/3/9.
+ * Device data OBJECT_MAPPER.
  */
-public class DeviceDataMapper {
+public final class DeviceDataMapper {
 
-  private static ObjectMapper mapper = new ObjectMapper();
+  /**
+   * Mapper.
+   */
+  private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-  public static DeviceData viewToModel(DeviceDataView view) {
+  /**
+   * Default constructor.
+   */
+  private DeviceDataMapper() {
+  }
+
+
+  /**
+   * View to model.
+   *
+   * @param view
+   * @return
+   */
+  public static DeviceData toModel(DeviceDataView view) {
     DeviceData model = null;
     if (view != null) {
       model = new DeviceData();
@@ -35,8 +51,15 @@ public class DeviceDataMapper {
     return model;
   }
 
-
-  public static DeviceData viewToModel(DeviceDataDraft dataDraft, String developerId, String
+  /**
+   * view to model.
+   *
+   * @param dataDraft
+   * @param developerId
+   * @param userId
+   * @return
+   */
+  public static DeviceData toModel(DeviceDataDraft dataDraft, String developerId, String
       userId) {
     DeviceData model = null;
     if (dataDraft != null) {
@@ -52,6 +75,12 @@ public class DeviceDataMapper {
     return model;
   }
 
+  /**
+   * Model to view.
+   *
+   * @param model
+   * @return
+   */
   public static DeviceDataView toView(DeviceData model) {
     DeviceDataView view = null;
     if (model != null) {
@@ -63,7 +92,7 @@ public class DeviceDataMapper {
       view.setDataDefinitionId(model.getDataDefinitionId());
       view.setVersion(model.getVersion());
       try {
-        view.setData(mapper.readTree(model.getData()));
+        view.setData(OBJECT_MAPPER.readTree(model.getData()));
       } catch (IOException ex) {
         view.setData(null);
       }
@@ -75,6 +104,12 @@ public class DeviceDataMapper {
     return view;
   }
 
+  /**
+   * To view list.
+   *
+   * @param dataList
+   * @return
+   */
   public static List<DeviceDataView> toView(List<DeviceData> dataList) {
     List<DeviceDataView> viewList = new ArrayList<>();
     dataList.stream().forEach(

@@ -20,22 +20,25 @@ import java.util.List;
 import javax.validation.Valid;
 
 /**
- * Created by umasuo on 17/3/9.
+ * Device data controller.
  */
 @RestController
 @CrossOrigin
 public class DeviceDataController {
 
   /**
-   * logger.
+   * LOGGER.
    */
-  private final static Logger logger = LoggerFactory.getLogger(DeviceDataController.class);
+  private final static Logger LOGGER = LoggerFactory.getLogger(DeviceDataController.class);
 
+  /**
+   * Data create application.
+   */
   @Autowired
   private transient DataCreateApplication dataApp;
 
   /**
-   * 客户端或者设备上传数据.
+   * Client or device upload single data.
    *
    * @param dataDraft   DeviceDataDraft
    * @param developerId String
@@ -45,28 +48,28 @@ public class DeviceDataController {
   public void createOneDeviceData(@RequestBody @Valid DeviceDataDraft dataDraft,
                                   @RequestHeader String developerId,
                                   @RequestHeader String userId) {
-    logger.info("Enter. deviceDataDraft: {}, developerId: {}, userId: {}.", dataDraft,
+    LOGGER.info("Enter. deviceDataDraft: {}, developerId: {}, userId: {}.", dataDraft,
         developerId, userId);
 
     DeviceDataView view = dataApp.create(dataDraft, developerId, userId);
 
-    logger.info("Exit. dataView: {}.", view);
+    LOGGER.info("Exit. dataView: {}.", view);
   }
 
   /**
-   * 客户端或者设备上传一系列数据.
+   * Client or device upload list of data.
    */
   @PostMapping(value = Router.DATA_CENTER_ROOT)
   public void createListDeviceData(@RequestBody @Valid List<DeviceDataDraft>
                                        dataDrafts,
                                    @RequestHeader String developerId,
                                    @RequestHeader String userId) {
-    logger.info("Enter. deviceDataDraftSize: {}, developerId: {}, userId: {}.", dataDrafts.size(),
+    LOGGER.info("Enter. deviceDataDraftSize: {}, developerId: {}, userId: {}.", dataDrafts.size(),
         developerId, userId);
 
     List<DeviceDataView> views = dataApp.createList(dataDrafts, developerId, userId);
 
-    logger.info("Exit. dataViewSize: {}.", views.size());
+    LOGGER.info("Exit. dataViewSize: {}.", views.size());
   }
 
 
@@ -88,12 +91,12 @@ public class DeviceDataController {
                                             @RequestParam String deviceId,
                                             @RequestParam long start,
                                             @RequestParam long end) {
-    logger.info("Enter. developerId: {}, userId: {}, dataId: {}, start: {}, end: {}.",
+    LOGGER.info("Enter. developerId: {}, userId: {}, dataId: {}, start: {}, end: {}.",
         developerId, userId, dataId, start, end);
 
     List<DeviceDataView> views = dataApp.get(developerId, userId, dataId, deviceId, start, end);
 
-    logger.info("Exit. DeviceDataSize: {}.", views.size());
+    LOGGER.info("Exit. DeviceDataSize: {}.", views.size());
     return views;
   }
 }

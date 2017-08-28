@@ -2,22 +2,15 @@ package com.umasuo.datacenter.application.dto;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.umasuo.datacenter.infrastructure.util.JsonUtils;
-
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 /**
- * Created by umasuo on 17/3/8.
+ * Data definition.
  */
 @Data
-public class DataDefinition implements Serializable {
-
-  /**
-   * auto generated serial id.
-   */
-  private static final long serialVersionUID = 944833177372407120L;
+public class DataDefinition {
 
   /**
    * auto generated uuid.
@@ -52,9 +45,12 @@ public class DataDefinition implements Serializable {
   /**
    * the data structure.
    */
-  private JsonNode dataSchema;
-
   private String schema;
+
+  /**
+   * Redundancy of json schema.
+   */
+  private JsonNode jsonSchema;
 
   /**
    * name of this definition.
@@ -72,8 +68,40 @@ public class DataDefinition implements Serializable {
    */
   private Boolean openable;
 
+  /**
+   * Schema setter.
+   *
+   * @param schema
+   */
   public void setSchema(String schema) {
     this.schema = schema;
-    dataSchema = JsonUtils.deserialize(schema, JsonNode.class);
+    jsonSchema = JsonUtils.deserialize(schema, JsonNode.class);
+  }
+
+  /**
+   * Getter.
+   *
+   * @return
+   */
+  public String getSchema() {
+    return schema;
+  }
+
+  /**
+   * Getter of json schema.
+   *
+   * @return
+   */
+  public JsonNode getJsonSchema() {
+    return jsonSchema;
+  }
+
+  /**
+   * Setter of json schema.
+   *
+   * @param jsonSchema
+   */
+  public void setJsonSchema(JsonNode jsonSchema) {
+    this.jsonSchema = jsonSchema;
   }
 }

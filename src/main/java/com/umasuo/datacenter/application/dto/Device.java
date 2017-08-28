@@ -1,29 +1,18 @@
 package com.umasuo.datacenter.application.dto;
 
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.io.Serializable;
 import java.time.ZonedDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
-
 /**
- * Created by umasuo on 17/6/9.
+ * Device.
  */
 @Data
-public class Device implements Serializable {
+public class Device {
 
   /**
-   * auto generated serial id.
+   * Device id.
    */
-  private static final long serialVersionUID = -9049122749850283417L;
-
   private String id;
 
   /**
@@ -51,7 +40,13 @@ public class Device implements Serializable {
    */
   private String customizedId;
 
+  /**
+   * Device owner id.
+   */
   private String ownerId;
 
+  /**
+   * Developer id of this device.
+   */
   private String developerId;
 }

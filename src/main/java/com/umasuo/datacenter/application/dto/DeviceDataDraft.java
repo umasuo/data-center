@@ -3,12 +3,10 @@ package com.umasuo.datacenter.application.dto;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 
-import java.time.ZonedDateTime;
-
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by umasuo on 17/3/9.
+ * Device data draft.
  */
 @Data
 public class DeviceDataDraft {

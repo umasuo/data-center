@@ -5,7 +5,6 @@ import org.fusesource.mqtt.client.BlockingConnection;
 import org.fusesource.mqtt.client.MQTT;
 import org.fusesource.mqtt.client.Message;
 import org.fusesource.mqtt.client.QoS;
-import org.fusesource.mqtt.client.Topic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,35 +12,36 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.charset.Charset;
 
 /**
- * Created by umasuo on 17/6/27.
+ * MessageApplication.
  */
 @Service
 public class MessageApplication implements CommandLineRunner {
   /**
    * Logger.
    */
-  private static final Logger logger = LoggerFactory.getLogger(MessageApplication.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MessageApplication.class);
 
-  private transient AppConfig appConfig;
-
-  private transient MQTT mqtt;
-
+  /**
+   * MQTT connection.
+   */
   private transient BlockingConnection connection;
 
+  /**
+   * MQTT user name cache prefix.
+   */
   private static final String USERNAME_PREFIX = "mqtt_user:";
-  private static final String DEVICE_TOPIC_SUB_PREFIX = "device/sub/";
+
+  /**
+   * Device topic's prefix for device to pub.
+   */
   private static final String DEVICE_TOPIC_PUB_PREFIX = "device/pub/";
 
-  private List<Topic> topics = new ArrayList<>();
   /**
-   * redis ops.
+   * Data message handler.
    */
-  private transient StringRedisTemplate redisTemplate;
-
   private transient DataMessageHandler deviceMessageHandler;
 
 
@@ -54,31 +54,29 @@ public class MessageApplication implements CommandLineRunner {
   public MessageApplication(StringRedisTemplate redisTemplate,
                             DataMessageHandler deviceMessageHandler,
                             AppConfig appConfig) {
-    logger.info("Init message client.");
+    LOGGER.info("Init message client.");
 
-    this.appConfig = appConfig;
-    logger.info("Message broker config: {}.", appConfig);
+    LOGGER.info("Message broker config: {}.", appConfig);
 
-    this.redisTemplate = redisTemplate;
     this.deviceMessageHandler = deviceMessageHandler;
 
     redisTemplate.boundHashOps(USERNAME_PREFIX + appConfig.getUsername()).put("password",
         appConfig.getPassword());
-    logger.info("Connect to redis.");
+    LOGGER.info("Connect to redis.");
 
-    mqtt = new MQTT();
+    MQTT mqtt = new MQTT();
     mqtt.setUserName(appConfig.getUsername());
     mqtt.setPassword(appConfig.getPassword());
     connection = mqtt.blockingConnection();
     try {
-      mqtt.setHost(appConfig.getMsgBrokerHost(),appConfig.getMsgBrokerPort());
+      mqtt.setHost(appConfig.getMsgBrokerHost(), appConfig.getMsgBrokerPort());
 
       connection = mqtt.blockingConnection();
 
       connection.connect();
-      logger.info("Connect to message broker: " + appConfig.getMsgBrokerHost());
+      LOGGER.info("Connect to message broker: " + appConfig.getMsgBrokerHost());
     } catch (Exception e) {
-      logger.error("Connect message broker failed.", e);
+      LOGGER.error("Connect message broker failed.", e);
     }
   }
 
@@ -92,32 +90,31 @@ public class MessageApplication implements CommandLineRunner {
    */
   public void publish(final String topic, final byte[] payload, final QoS qos, final boolean
       retain) {
-    logger.debug("Enter. topic: {}, payload: {}, qos: {}, retain: {}.", topic, new String
-        (payload), qos, retain);
+    LOGGER.debug("Enter. topic: {}, payload: {}, qos: {}, retain: {}.", topic,
+        new String(payload, Charset.forName("UTF-8")), qos, retain);
     try {
       connection.publish(topic, payload, qos, retain);
     } catch (Exception e) {
-      logger.error("publish message failed.", e);
+      LOGGER.error("publish message failed.", e);
     }
   }
 
   /**
-   * Service 启动时自动接受
+   * Service auto start.
    *
    * @param args
    * @throws Exception
    */
   @Override
   public void run(String... args) throws Exception {
-    logger.info("start process data.");
+    LOGGER.info("start process data.");
     while (true) {
       Message message = connection.receive();
       if (message != null) {
         String topic = message.getTopic();//从这里可以获得deviceID，
         String deviceId = topic.substring(DEVICE_TOPIC_PUB_PREFIX.length() - 1);
-        String payload = new String(message.getPayload());//从这里可以获取device上发的命令和数据
 
-        boolean handlerResult = deviceMessageHandler.handler(deviceId, payload);
+        boolean handlerResult = deviceMessageHandler.handler(deviceId, message.getPayload());
         if (handlerResult) {
           message.ack();
         }

@@ -3,22 +3,32 @@ package com.umasuo.datacenter.application.dto;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 
-import java.time.ZonedDateTime;
-
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by umasuo on 17/3/9.
+ * Device Data View.
  */
 @Data
 public class DeviceDataView {
 
+  /**
+   * Device data id.
+   */
   private String id;
 
+  /**
+   * Create time.
+   */
   protected Long createdAt;
 
+  /**
+   * Update time.s
+   */
   protected Long lastModifiedAt;
 
+  /**
+   * Data version.
+   */
   private Integer version;
 
   /**
@@ -40,10 +50,19 @@ public class DeviceDataView {
   private JsonNode data;
 
   // the next three filed is redundancy for search or process.
+  /**
+   * User id.
+   */
   @NotNull
   private String userId;
 
+  /**
+   * Developer id.
+   */
   private String developerId;
 
+  /**
+   * Device definition id.
+   */
   private String deviceDefinitionId;
 }

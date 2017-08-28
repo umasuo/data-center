@@ -7,8 +7,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.ZonedDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -18,7 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 /**
- * Created by umasuo on 17/3/9.
  * Device Data
  */
 @Entity
@@ -28,6 +25,9 @@ import javax.persistence.Version;
 @EntityListeners(AuditingEntityListener.class)
 public class DeviceData {
 
+  /**
+   * Id.
+   */
   @Id
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -73,10 +73,19 @@ public class DeviceData {
 
   // the next several filed is redundancy for search or process.
 
+  /**
+   * User id.
+   */
   private String userId;
 
+  /**
+   * Developer id.
+   */
   private String developerId;
 
+  /**
+   * Device definition id.
+   */
   private String deviceDefinitionId;
 
 }

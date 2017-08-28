@@ -22,23 +22,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 设备上传数据服务.
- * Created by umasuo on 17/3/9.
+ * Data create application.
  */
 @Service
 public class DataCreateApplication {
 
   /**
-   * logger.
+   * LOGGER.
    */
-  private final static Logger logger = LoggerFactory.getLogger(DeviceDataService.class);
+  private final static Logger LOGGER = LoggerFactory.getLogger(DeviceDataService.class);
 
   /**
-   * 设备数据服务
+   * Device data service.
    */
   @Autowired
   private transient DeviceDataService deviceDataService;
 
+  /**
+   * Rest client for rest call.
+   */
   @Autowired
   private transient RestClient restClient;
 
@@ -50,21 +52,19 @@ public class DataCreateApplication {
    * @return
    */
   public DeviceDataView create(DeviceDataDraft dataDraft, String developerId, String userId) {
-    logger.debug("Enter. dataDraft: {}", dataDraft);
-
-    DeviceData data = DeviceDataMapper.viewToModel(dataDraft, developerId, userId);
+    LOGGER.debug("Enter. dataDraft: {}", dataDraft);
 
     // Check if device exist.
     Device device = restClient.getDevice(dataDraft.getDeviceId(), developerId);
     if (device == null) {
-      logger.debug("Device: {} not exist.", dataDraft.getDeviceId());
+      LOGGER.debug("Device: {} not exist.", dataDraft.getDeviceId());
       throw new ParametersException("Device not exist, deviceId: " + dataDraft.getDeviceId());
     }
 
     // Check if user is bound to the device
     if (StringUtils.isNotBlank(userId) &&
         !userId.equals(device.getOwnerId())) {
-      logger.debug("User: {} is not bound to the device: {}.", userId, device.getId());
+      LOGGER.debug("User: {} is not bound to the device: {}.", userId, device.getId());
       throw new ParametersException("User: " + userId +
           " not bound to the device: " + device.getId());
     }
@@ -75,18 +75,19 @@ public class DataCreateApplication {
 
     try {
       JsonSchema schema = JsonSchemaFactory.byDefault().getJsonSchema(dataDefinition
-          .getDataSchema());
+          .getJsonSchema());
       schema.validate(dataDraft.getData());
     } catch (ProcessingException ex) {
-      logger.debug("Data is not in correct format, dataDraft: {}.", dataDraft);
+      LOGGER.debug("Data is not in correct format, dataDraft: {}.", dataDraft);
       throw new ParametersException("Data is not in correct format.");
     }
 
+    DeviceData data = DeviceDataMapper.toModel(dataDraft, developerId, userId);
     DeviceData dataSaved = deviceDataService.create(data);
 
     //todo 原始数据已经完成存储，发出相关消息，然后开始进行数据的处理
 
-    logger.debug("Exit. dataSaved: {}", dataSaved);
+    LOGGER.debug("Exit. dataSaved: {}", dataSaved);
     return DeviceDataMapper.toView(dataSaved);
   }
 
@@ -100,13 +101,13 @@ public class DataCreateApplication {
    */
   public List<DeviceDataView> createList(List<DeviceDataDraft> drafts, String developerId, String
       userId) {
-    logger.debug("Enter. ");
+    LOGGER.debug("Enter. ");
 
     List<DeviceDataView> views = drafts.stream().map(
         dataDraft -> create(dataDraft, developerId, userId)
     ).collect(Collectors.toList());
 
-    logger.debug("Exit. ");
+    LOGGER.debug("Exit. ");
     return views;
   }
 
@@ -128,8 +129,7 @@ public class DataCreateApplication {
                                   String deviceId,
                                   long start,
                                   long end) {
-    logger.debug("Enter. developerId: {}, userId: {}, dataId: {}, deviceId: {}, start: {}, end: " +
-        "{}.", developerId, userId, dataId, deviceId, start, end);
+    LOGGER.debug("Enter. developerId: {}, userId: {}, dataId: {}, deviceId: {}, start: {}, end: {}.", developerId, userId, dataId, deviceId, start, end);
 
     TimeValidator.validatePeriod(start, end);
 
@@ -138,8 +138,8 @@ public class DataCreateApplication {
 
     List<DeviceDataView> viewList = DeviceDataMapper.toView(dataList);
 
-    logger.debug("Exit. dataSize: {}.", viewList.size());
-    logger.trace("Exit. data: {}.", viewList);
+    LOGGER.debug("Exit. dataSize: {}.", viewList.size());
+    LOGGER.trace("Exit. data: {}.", viewList);
     return viewList;
   }
 }

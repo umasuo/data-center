@@ -16,6 +16,8 @@
     <!-- sometimes conflict with rule of UnnecessaryConstructor -->
     <exclude name="AtLeastOneConstructor" />
     <exclude name="DataflowAnomalyAnalysis" />
+    <exclude name="UseObjectForClearerAPI" />
+    <exclude name="OnlyOneReturn" />
     <!-- conflict with LocalVariableCouldBeFinal -->
     <exclude name="AvoidFinalLocalVariable" />
   </rule>
@@ -39,12 +41,18 @@
   </rule>
   <rule ref="build_scripts/quality_assurance/config/pmd/rulesets/junit.xml"></rule>
   <rule
-    ref="build_scripts/quality_assurance/config/pmd/rulesets/logging-jakarta-commons.xml"></rule>
+    ref="build_scripts/quality_assurance/config/pmd/rulesets/logging-jakarta-commons.xml">
+    <exclude name="GuardLogStatement"></exclude>
+    <exclude name="GuardDebugLogging"></exclude>
+  </rule>
   <rule ref="build_scripts/quality_assurance/config/pmd/rulesets/logging-java.xml">
     <exclude name="InvalidSlf4jMessageFormat" />
   </rule>
   <rule ref="build_scripts/quality_assurance/config/pmd/rulesets/migrating.xml"></rule>
-  <rule ref="build_scripts/quality_assurance/config/pmd/rulesets/naming.xml"></rule>
+  <rule ref="build_scripts/quality_assurance/config/pmd/rulesets/naming.xml">
+    <exclude name="ShortVariable" />
+    <exclude name="ShortMethodName" />
+  </rule>
   <rule ref="build_scripts/quality_assurance/config/pmd/rulesets/optimizations.xml">
     <!-- too many final -->
     <exclude name="MethodArgumentCouldBeFinal"></exclude>
@@ -54,6 +62,7 @@
   <rule ref="build_scripts/quality_assurance/config/pmd/rulesets/strictexception.xml">
     <!-- some generated code throws exception and we need to extends them -->
     <exclude name="SignatureDeclareThrowsException" />
+    <exclude name="AvoidCatchingGenericException" />
   </rule>
   <rule ref="build_scripts/quality_assurance/config/pmd/rulesets/strings.xml"></rule>
   <rule ref="build_scripts/quality_assurance/config/pmd/rulesets/sunsecure.xml"></rule>

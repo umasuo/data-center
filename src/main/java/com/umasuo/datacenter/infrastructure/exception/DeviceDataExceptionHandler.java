@@ -1,9 +1,6 @@
 package com.umasuo.datacenter.infrastructure.exception;
 
 import com.umasuo.datacenter.infrastructure.util.JsonUtils;
-import com.umasuo.exception.AlreadyExistException;
-import com.umasuo.exception.NotExistException;
-import com.umasuo.exception.PasswordErrorException;
 import com.umasuo.exception.handler.ExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +14,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by umasuo on 17/3/2.
+ * DeviceDataExceptionHandler.
  */
 @Component
 public class DeviceDataExceptionHandler implements ExceptionHandler, HandlerExceptionResolver {
 
-  private static Logger logger = LoggerFactory.getLogger(DeviceDataExceptionHandler.class);
+  /**
+   * Logger.
+   */
+  private static final Logger LOG = LoggerFactory.getLogger(DeviceDataExceptionHandler.class);
 
+  /**
+   * Resolve exception.
+   *
+   * @param request
+   * @param response
+   * @param handler
+   * @param ex
+   * @return
+   */
   @Override
   public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response,
                                        Object handler, Exception ex) {
@@ -45,31 +54,19 @@ public class DeviceDataExceptionHandler implements ExceptionHandler, HandlerExce
         response.getWriter().print(JsonUtils.serialize(body));
       }
     } catch (IOException e) {
-      logger.error("failed to write response JSON", e);
+      LOG.error("failed to write response JSON", e);
       throw new IllegalStateException(e);
     }
   }
 
   /**
-   * get customized message body by exception type.
+   * Get customized message body by exception type.
    *
    * @param ex exception.
    * @return exception body.
    */
   private ExceptionBody getBody(Exception ex) {
-    ExceptionBody body = null;
-    if (ex instanceof NotExistException) {
-      body = ExceptionBody.of(ExceptionBody.DEVELOPER_NOT_EXIST_CODE, ExceptionBody
-          .DEVELOPER_NOT_EXIST_MESSAGE);
-    }
-    if (ex instanceof AlreadyExistException) {
-      body = ExceptionBody.of(ExceptionBody.DEVELOPER_ALREADY_EXIST_CODE, ExceptionBody
-          .DEVELOPER_ALREADY_EXIST_MESSAGE);
-    }
-    if (ex instanceof PasswordErrorException) {
-      body = ExceptionBody.of(ExceptionBody.EMAIL_OR_PASSWORD_ERROR_CODE, ExceptionBody
-          .EMAIL_OR_PASSWORD_ERROR_MESSAGE);
-    }
-    return body;
+    assert ex != null;
+    return null;
   }
 }
