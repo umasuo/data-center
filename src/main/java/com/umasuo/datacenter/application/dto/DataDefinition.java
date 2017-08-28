@@ -1,7 +1,7 @@
 package com.umasuo.datacenter.application.dto;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.umasuo.datacenter.infrastructure.util.JsonUtils;
+import com.umasuo.util.JsonUtils;
 import lombok.Data;
 
 import java.time.ZonedDateTime;

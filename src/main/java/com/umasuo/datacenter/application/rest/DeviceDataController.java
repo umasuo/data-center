@@ -44,7 +44,6 @@ public class DeviceDataController {
    * @param developerId String
    * @param userId      Strings
    */
-//  @PostMapping(value = Router.DATA_CENTER_ROOT)
   public void createOneDeviceData(@RequestBody @Valid DeviceDataDraft dataDraft,
                                   @RequestHeader String developerId,
                                   @RequestHeader String userId) {

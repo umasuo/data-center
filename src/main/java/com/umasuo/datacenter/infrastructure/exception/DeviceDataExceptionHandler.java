@@ -1,7 +1,7 @@
 package com.umasuo.datacenter.infrastructure.exception;
 
-import com.umasuo.datacenter.infrastructure.util.JsonUtils;
 import com.umasuo.exception.handler.ExceptionHandler;
+import com.umasuo.util.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
