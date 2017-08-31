@@ -6,6 +6,11 @@ package com.umasuo.datacenter.infrastructure.exception;
 public class NotSignInException extends RuntimeException {
 
   /**
+   * Auto generated serial version id.
+   */
+  private static final long serialVersionUID = -9188653671581494470L;
+
+  /**
    * Constructor.
    */
   public NotSignInException() {

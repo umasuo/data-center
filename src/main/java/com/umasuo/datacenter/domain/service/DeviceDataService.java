@@ -43,6 +43,7 @@ public class DeviceDataService {
 
   /**
    * Get device data.
+   *
    * @param developerId
    * @param userId
    * @param dataId
@@ -57,10 +58,10 @@ public class DeviceDataService {
                               String deviceId,
                               long start,
                               long end) {
-    LOGGER.debug("Enter. developerId: {}, userId: {}, dataId: {}, deviceId: {}, start: {}, end: " +
-        "{}.", developerId, userId, dataId, deviceId, start, end);
+    LOGGER.debug("Enter. developerId: {}, userId: {}, dataId: {}, deviceId: {}, start: {}, end: {}.",
+      developerId, userId, dataId, deviceId, start, end);
     List<DeviceData> dataList = repository.query(developerId, userId, dataId, deviceId,
-        start, end);
+      start, end);
 
     LOGGER.debug("Exit. dataSize: {}.", dataList.size());
     LOGGER.trace("Exit. data: {}.", dataList);
